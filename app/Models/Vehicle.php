@@ -16,4 +16,14 @@ class Vehicle extends Model
         'color',
         'year',
     ];
+
+    //scope
+    public function scopeSearch($query, $val)
+    {
+        return $query->where('merk', 'like', '%' . $val . '%')
+            ->orWhere('type', 'like', '%' . $val . '%')
+            ->orWhere('license_plate', 'like', '%' . $val . '%')
+            ->orWhere('color', 'like', '%' . $val . '%')
+            ->orWhere('year', 'like', '%' . $val . '%');
+    }
 }
