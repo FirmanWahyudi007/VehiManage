@@ -34,7 +34,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('success', [
+        return Redirect::route('profile.edit')->with('alert', [
             'status' => 'success',
             'message' => 'You are profile was updated.'
         ]);

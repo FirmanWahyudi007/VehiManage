@@ -7,6 +7,9 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if ($message = Session::get('alert'))
+                <x-notification-message :alert="$message" />
+            @endif
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="w-full">
                     <section>
@@ -47,9 +50,9 @@
                             name: 'status',
                             render: function(data, type, row) {
                                 if (data == 1) {
-                                    return '<span class="text-green-500 font-semibold">Active</span>';
+                                    return '<span class="text-green-500 font-medium">Active</span>';
                                 } else {
-                                    return '<span class="text-red-500 font-semibold">Inactive</span>';
+                                    return '<span class="text-red-500 font-medium">Inactive</span>';
                                 }
                             }
                         },

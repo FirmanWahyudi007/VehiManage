@@ -21,7 +21,7 @@
     }
 @endphp
 
-<div class="border {{ $colorClasses }} px-4 py-3 rounded relative" role="alert">
+<div class="border {{ $colorClasses }} px-4 py-3 rounded relative mb-2" role="alert">
     <strong class="font-bold">{{ ucfirst($alert['status']) }}</strong>
     <span class="block sm:inline">{{ $alert['message'] }}</span>
     <button class="absolute top-0 bottom-0 right-0 px-4 py-3" onclick="closeAlert(event)">

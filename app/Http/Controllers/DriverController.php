@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Driver;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class DriverController extends Controller
@@ -22,5 +23,17 @@ class DriverController extends Controller
             'Status',
         ];
         return view('drivers.index', compact('head'));
+    }
+
+
+    public function autocomplete(Request $request): JsonResponse
+    {
+        $data = [];
+        if ($request->filled('q')) {
+            $data = Driver::where('name', 'like', '%' . $request->input('q') . '%')
+                ->where('status', '=', '1')
+                ->get();
+        }
+        return response()->json($data);
     }
 }

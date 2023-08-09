@@ -27,15 +27,15 @@ return new class extends Migration
                 ->on('drivers')->onDelete('cascade')->onUpdate('cascade');
             $table->string('pickup_location');
             $table->string('destination');
-            $table->string('pickup_date');
-            $table->string('pickup_time');
+            $table->date('pickup_date');
+            $table->time('pickup_time');
             //aproval 2 level role
-            $table->string('approval_level');
-            $table->unsignedBigInteger('approval_by');
+            $table->integer('approval_level');
+            $table->unsignedBigInteger('approval_by')->nullable();
             $table->foreign('approval_by')
                 ->references('id')
                 ->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('status');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

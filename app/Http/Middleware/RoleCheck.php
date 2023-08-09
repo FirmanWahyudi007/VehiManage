@@ -21,7 +21,7 @@ class RoleCheck
                 return $next($request);
             }
         }
-        return redirect()->back()->with('error', [
+        return redirect()->back()->with('alert', [
             'status' => 'error',
             'message' => 'You are not authorized to access this page.'
         ]);
