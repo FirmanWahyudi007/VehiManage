@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Vehicles') }}
+            {{ __('Drivers') }}
         </h2>
     </x-slot>
 
@@ -12,11 +12,11 @@
                     <section>
                         <header>
                             <h2 class="text-lg font-medium text-gray-900">
-                                {{ __('Vehicles') }}
+                                {{ __('Drivers') }}
                             </h2>
                         </header>
                         <div class="mt-4">
-                            <x-table :head="$head" id="vehiclesTable" />
+                            <x-table :head="$head" id="driversTable" />
                         </div>
                     </section>
                 </div>
@@ -26,29 +26,32 @@
     <x-slot name="additionalScripts">
         <script>
             $(document).ready(function() {
-                $('#vehiclesTable').DataTable({
+                $('#driversTable').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('vehicles.index') }}",
+                    ajax: " ",
                     columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
                         },
                         {
-                            data: 'merk',
-                            name: 'merk'
+                            data: 'name',
+                            name: 'name'
                         },
                         {
-                            data: 'type',
-                            name: 'type'
+                            data: 'phone_number',
+                            name: 'phone_number'
                         },
                         {
-                            data: 'year',
-                            name: 'year'
-                        },
-                        {
-                            data: 'license_plate',
-                            name: 'license_plate',
+                            data: 'status',
+                            name: 'status',
+                            render: function(data, type, row) {
+                                if (data == 1) {
+                                    return '<span class="text-green-500 font-semibold">Active</span>';
+                                } else {
+                                    return '<span class="text-red-500 font-semibold">Inactive</span>';
+                                }
+                            }
                         },
                     ]
                 });

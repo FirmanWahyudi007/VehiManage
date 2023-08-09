@@ -19,7 +19,14 @@ class VehicleController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('vehicles.index',);
+        $head = [
+            '#',
+            'Merk',
+            'Type',
+            'Year',
+            'License Plate',
+        ];
+        return view('vehicles.index', compact('head'));
     }
 
     /**
