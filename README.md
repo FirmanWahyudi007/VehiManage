@@ -1,9 +1,9 @@
 # VehiManage
 
 ## Spesifikasi
-PHP Version: 8.1.10
-Database: MySQL
-Framework: Laravel 10
+- PHP Version: 8.1.10
+- Database: MySQL
+- Framework: Laravel 10
 
 ## Akun
 
