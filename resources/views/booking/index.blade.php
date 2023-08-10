@@ -88,6 +88,7 @@
 
 
             $(document).ready(function() {
+                let role = `{{ Auth::user()->role }}`;
                 $('#bookingTable').DataTable({
                     processing: true,
                     serverSide: true,
@@ -116,13 +117,13 @@
                             }
                         },
                         {
-                            data: 'approval_by',
-                            name: 'approval_by',
+                            data: 'approved_by',
+                            name: 'approved_by',
                             render: function(data, type, row) {
                                 if (data == null) {
                                     return '<span class="text-red-500 font-medium">Pending</span>';
                                 } else {
-                                    return data.approved_by.name;
+                                    return data.name;
                                 }
                             }
                         },
@@ -131,7 +132,6 @@
                             name: 'approval_level',
                             render: function(data, type, row) {
                                 var statusText = "";
-
                                 switch (data) {
                                     case 0:
                                         statusText = "Awaiting Employee Approval";
@@ -140,23 +140,47 @@
                                         statusText = "Awaiting Supervisor Approval";
                                         break;
                                     case 2:
-                                        statusText = "Rejected by Employee";
+                                        statusText = "Approved";
                                         break;
                                     case 3:
-                                        statusText = "Rejected by Supervisor";
+                                        statusText = "Rejected by Employee";
                                         break;
                                     case 4:
-                                        statusText = "Approved";
+                                        statusText = "Rejected by Supervisor";
                                         break;
                                     default:
                                         statusText = "Unknown";
                                         break;
                                 }
-
-                                var statusClass = data == 4 || data == 5 ? "text-green-500" :
+                                var statusClass = data == 2 ? "text-green-500" :
                                     "text-red-500";
-
-                                return `<span class="${statusClass} font-medium">${statusText}</span>`;
+                                if (`{{ Auth::user()->role }}` == 'employee' && data == 0 ||
+                                    `{{ Auth::user()->role }}` == 'supervisor' && data == 1) {
+                                    //action approve reject
+                                    let action = `<div class="flex flex-wrap gap-2">
+                                        <div class="w-full px-4 lg:w-14 bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-2 rounded">
+                                            <a href="{{ url('booking/${row.id}/approve') }}" class="">
+                                                <span class="text-white font-medium">
+                                                    <svg class="w-6 h-6 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+                                                    </svg>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="w-full px-4 lg:w-14 bg-rose-500 hover:bg-rose-700 text-white font-bold py-2 px-2 rounded">
+                                            <a href="{{ url('booking/${row.id}/reject') }}" class="">
+                                                <span class="text-white font-medium">
+                                                    <svg class="w-6 h-6 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                    </svg>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </div>`;
+                                    return action;
+                                } else {
+                                    return `<span class="${statusClass} font-medium">${statusText}</span>`;
+                                }
                             }
 
                         },

@@ -81,4 +81,73 @@ class BookingController extends Controller
             'message' => 'Booking created successfully.'
         ]);
     }
+
+    public function approve(Booking $booking)
+    {
+        $role = auth()->user()->role;
+        if ($role == 'employee') {
+            if ($booking->user_id != auth()->user()->id) {
+                return redirect()->route('booking.index')->with('alert', [
+                    'status' => 'danger',
+                    'message' => 'You are not authorized to approve this booking.'
+                ]);
+            }
+            $booking->update([
+                'status' => '0',
+                'approval_by' => auth()->user()->id,
+                'approval_level' => '1'
+            ]);
+        } elseif ($role == 'supervisor') {
+            if ($booking->user->supervisor_id != auth()->user()->id) {
+                return redirect()->route('booking.index')->with('alert', [
+                    'status' => 'danger',
+                    'message' => 'You are not authorized to approve this booking.'
+                ]);
+            }
+            $booking->update([
+                'status' => '1',
+                'approval_by' => auth()->user()->id,
+                'approval_level' => '2'
+            ]);
+        }
+        return redirect()->route('booking.index')->with('alert', [
+            'status' => 'success',
+            'message' => 'Booking approved successfully.'
+        ]);
+    }
+
+    //reject booking
+    public function reject(Booking $booking)
+    {
+        $role = auth()->user()->role;
+        if ($role == 'employee') {
+            if ($booking->user_id != auth()->user()->id) {
+                return redirect()->route('booking.index')->with('alert', [
+                    'status' => 'danger',
+                    'message' => 'You are not authorized to reject this booking.'
+                ]);
+            }
+            $booking->update([
+                'status' => '2',
+                'approval_by' => auth()->user()->id,
+                'approval_level' => '3'
+            ]);
+        } elseif ($role == 'supervisor') {
+            if ($booking->user->supervisor_id != auth()->user()->id) {
+                return redirect()->route('booking.index')->with('alert', [
+                    'status' => 'danger',
+                    'message' => 'You are not authorized to reject this booking.'
+                ]);
+            }
+            $booking->update([
+                'status' => '2',
+                'approval_by' => auth()->user()->id,
+                'approval_level' => '4'
+            ]);
+        }
+        return redirect()->route('booking.index')->with('alert', [
+            'status' => 'error',
+            'message' => 'Booking rejected.'
+        ]);
+    }
 }

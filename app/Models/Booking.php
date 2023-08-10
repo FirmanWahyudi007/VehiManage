@@ -17,8 +17,8 @@ class Booking extends Model
         'destination',
         'pickup_date',
         'pickup_time',
-        'aprroved_by',
-        'approved_level',
+        'approval_by',
+        'approval_level',
         'status',
     ];
 
@@ -39,6 +39,6 @@ class Booking extends Model
 
     public function approvedBy()
     {
-        return $this->belongsTo(User::class, 'approved_by');
+        return $this->belongsTo(User::class, 'approval_by');
     }
 }

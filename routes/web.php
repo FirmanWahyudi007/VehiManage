@@ -31,6 +31,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('vehicles', VehicleController::class);
         Route::resource('booking', BookingController::class);
     });
+    Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
+    Route::get('/booking/{booking}/approve', [BookingController::class, 'approve'])->name('booking.approve');
+    Route::get('/booking/{booking}/reject', [BookingController::class, 'reject'])->name('booking.reject');
     Route::resource('drivers', DriverController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
