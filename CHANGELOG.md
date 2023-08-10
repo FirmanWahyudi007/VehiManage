@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/FirmanWahyudi007/VehiManage/compare/v1.0.0...v1.1.0) (2023-08-10)
+
+
+### Features
+
+* add log message for every process ([6358c0c](https://github.com/FirmanWahyudi007/VehiManage/commit/6358c0c73c233731c8b8ad88967d0d07297c699e))
+
 ## 1.0.0 (2023-08-10)
 
 
