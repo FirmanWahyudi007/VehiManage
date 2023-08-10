@@ -26,4 +26,9 @@ class Vehicle extends Model
             ->orWhere('color', 'like', '%' . $val . '%')
             ->orWhere('year', 'like', '%' . $val . '%');
     }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

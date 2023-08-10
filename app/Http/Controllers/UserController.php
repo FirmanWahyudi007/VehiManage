@@ -15,6 +15,7 @@ class UserController extends Controller
         if ($request->filled('q')) {
             $data = User::where('name', 'like', '%' . $request->input('q') . '%')
                 ->where('role', '!=', 'admin')
+                ->Where('role', '!=', 'supervisor')
                 ->get();
         }
         return response()->json($data);

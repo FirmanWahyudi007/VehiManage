@@ -35,7 +35,14 @@ class VehicleController extends Controller
     {
         $data = [];
         if ($request->filled('q')) {
-            $data = Vehicle::search($request->input('q'))->get();
+            $data = Vehicle::search($request->input('q'));
+            //cek apakah mobil sudah dipakai atau belum pada tanggal yang dipilih hari ini sampai 7 hari kedepan
+            $data = $data->whereDoesntHave('bookings', function ($query) use ($request) {
+                $query->whereBetween('pickup_date', [
+                    now()->format('Y-m-d'),
+                    now()->addDays(7)->format('Y-m-d'),
+                ])->where('status', '!=', 2);
+            })->get();
         }
         return response()->json($data);
     }
