@@ -25,7 +25,15 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        //login email or username
+        $fieldType = filter_var($request->email, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $request->merge([$fieldType => $request->email]);
+        //attempt login
+        if (!Auth::attempt($request->only($fieldType, 'password'), $request->filled('remember'))) {
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+            ]);
+        }
 
         $request->session()->regenerate();
 
