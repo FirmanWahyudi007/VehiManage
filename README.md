@@ -1,6 +1,6 @@
 # VehiManage
 
-Aplikasi ini adalah sebuah platform pemesanan kendaraan yang dirancang untuk memudahkan proses pemesanan kendaraan dengan melibatkan tiga peran utama: Admin, Approver, dan User. Aplikasi ini juga dilengkapi dengan fitur dashboard untuk melihat grafik pemakaian kendaraan.
+Aplikasi ini adalah sebuah platform pemesanan kendaraan yang dirancang untuk memudahkan proses pemesanan kendaraan dengan melibatkan tiga peran utama: Admin, Supervisor, dan Employee. Aplikasi ini juga dilengkapi dengan fitur dashboard untuk melihat grafik pemakaian kendaraan.
 
 ## Spesifikasi
 
