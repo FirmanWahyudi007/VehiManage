@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(User::class, 'supervisor_id');
     }
+
+    public function logMessages()
+    {
+        return $this->hasMany(LogMessage::class);
+    }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use App\Http\Requests\BookingCreateRequest;
+use App\Models\LogMessage;
+use App\Models\User;
 
 class BookingController extends Controller
 {
@@ -76,6 +78,11 @@ class BookingController extends Controller
         $validated = $request->validated();
         $validated['status'] = '0';
         Booking::create($validated);
+        $user = User::find($validated['user_id']);
+        LogMessage::create([
+            'user_id' => auth()->user()->id,
+            'message' => auth()->user()->name . ' created a new booking for ' . $user->name . ' dated ' . $validated['pickup_date'] . '.',
+        ]);
         return redirect()->route('booking.index')->with('alert', [
             'status' => 'success',
             'message' => 'Booking created successfully.'
@@ -97,6 +104,10 @@ class BookingController extends Controller
                 'approval_by' => auth()->user()->id,
                 'approval_level' => '1'
             ]);
+            LogMessage::create([
+                'user_id' => auth()->user()->id,
+                'message' => 'approve orders that have been made dated ' . $booking->pickup_date . '.',
+            ]);
         } elseif ($role == 'supervisor') {
             if ($booking->user->supervisor_id != auth()->user()->id) {
                 return redirect()->route('booking.index')->with('alert', [
@@ -108,6 +119,10 @@ class BookingController extends Controller
                 'status' => '1',
                 'approval_by' => auth()->user()->id,
                 'approval_level' => '2'
+            ]);
+            LogMessage::create([
+                'user_id' => auth()->user()->id,
+                'message' => 'approved the order for ' . $booking->user->name . ' dated ' . $booking->pickup_date . '.',
             ]);
         }
         return redirect()->route('booking.index')->with('alert', [
@@ -132,6 +147,10 @@ class BookingController extends Controller
                 'approval_by' => auth()->user()->id,
                 'approval_level' => '3'
             ]);
+            LogMessage::create([
+                'user_id' => auth()->user()->id,
+                'message' => 'reject orders that have been made dated ' . $booking->pickup_date . '.',
+            ]);
         } elseif ($role == 'supervisor') {
             if ($booking->user->supervisor_id != auth()->user()->id) {
                 return redirect()->route('booking.index')->with('alert', [
@@ -143,6 +162,10 @@ class BookingController extends Controller
                 'status' => '2',
                 'approval_by' => auth()->user()->id,
                 'approval_level' => '4'
+            ]);
+            LogMessage::create([
+                'user_id' => auth()->user()->id,
+                'message' => 'rejected the order for ' . $booking->user->name . ' dated ' . $booking->pickup_date . '.',
             ]);
         }
         return redirect()->route('booking.index')->with('alert', [
