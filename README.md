@@ -85,3 +85,7 @@ Note: Semua akun passwordnya sama yaitu "password"
 Pastikan untuk mengganti instruksi di atas dengan langkah-langkah yang sesuai dengan lingkungan pengembangan Anda.
 
 Dengan panduan ini, pengguna dapat dengan mudah mengakses dan menggunakan aplikasi pemesanan kendaraan dengan lancar. Semua peran akan memiliki akses yang sesuai dengan tugas dan tanggung jawab masing-masing.
+
+## Physical Data Model
+
+![Physical Data Model](/public/PhysicalModel.png "Physical Data Model")
