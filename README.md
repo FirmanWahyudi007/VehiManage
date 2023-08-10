@@ -88,4 +88,4 @@ Dengan panduan ini, pengguna dapat dengan mudah mengakses dan menggunakan aplika
 
 ## Physical Data Model
 
-![Physical Data Model](/public/PhysicalModel.png "Physical Data Model")
+![Physical Data Model](/public/PhysicalModel2.png "Physical Data Model")
