@@ -1,21 +1,21 @@
-#VehiManage
+# VehiManage
 
 <hr>
-##Spesifikasi
+## Spesifikasi
 PHP Version: 8.1.10
 Database: MySQL
 Framework: Laravel 10
 
 <hr>
-##Akun
+## Akun
 
-###Role
+### Role
 
 1. Admin
 2. Supervisor
 3. Employee
 
-####Admin
+#### Admin
 email:intan.wibowo@example.com
 username:vkuswandari
 password:password
