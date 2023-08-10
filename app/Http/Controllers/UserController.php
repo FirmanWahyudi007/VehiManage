@@ -8,7 +8,24 @@ use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
-    //autocomplete
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $users = User::where('role', '!=', 'admin')
+                ->get();
+            return datatables()->of($users)
+                ->addIndexColumn()
+                ->make(true);
+        }
+        $head = [
+            '#',
+            'Name',
+            'Phone Number',
+            'Role',
+        ];
+        return view('users.index', compact('head'));
+    }
+
     public function autocomplete(Request $request): JsonResponse
     {
         $data = [];

@@ -88,7 +88,7 @@ class BookingController extends Controller
         if ($role == 'employee') {
             if ($booking->user_id != auth()->user()->id) {
                 return redirect()->route('booking.index')->with('alert', [
-                    'status' => 'danger',
+                    'status' => 'error',
                     'message' => 'You are not authorized to approve this booking.'
                 ]);
             }
@@ -100,7 +100,7 @@ class BookingController extends Controller
         } elseif ($role == 'supervisor') {
             if ($booking->user->supervisor_id != auth()->user()->id) {
                 return redirect()->route('booking.index')->with('alert', [
-                    'status' => 'danger',
+                    'status' => 'error',
                     'message' => 'You are not authorized to approve this booking.'
                 ]);
             }
@@ -123,7 +123,7 @@ class BookingController extends Controller
         if ($role == 'employee') {
             if ($booking->user_id != auth()->user()->id) {
                 return redirect()->route('booking.index')->with('alert', [
-                    'status' => 'danger',
+                    'status' => 'error',
                     'message' => 'You are not authorized to reject this booking.'
                 ]);
             }
@@ -135,7 +135,7 @@ class BookingController extends Controller
         } elseif ($role == 'supervisor') {
             if ($booking->user->supervisor_id != auth()->user()->id) {
                 return redirect()->route('booking.index')->with('alert', [
-                    'status' => 'danger',
+                    'status' => 'error',
                     'message' => 'You are not authorized to reject this booking.'
                 ]);
             }
@@ -146,7 +146,7 @@ class BookingController extends Controller
             ]);
         }
         return redirect()->route('booking.index')->with('alert', [
-            'status' => 'error',
+            'status' => 'success',
             'message' => 'Booking rejected.'
         ]);
     }

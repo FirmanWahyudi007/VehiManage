@@ -6,6 +6,7 @@ use App\Http\Controllers\DriverController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,31 +20,33 @@ use App\Http\Controllers\VehicleController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::middleware(['role:admin'])->group(function () {
-        Route::resource('vehicles', VehicleController::class);
-        Route::resource('booking', BookingController::class);
+        Route::get('/vehicles', [VehicleController::class, 'index'])->name('vehicles.index');
+        Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
+        Route::get('booking/create', [BookingController::class, 'create'])->name('booking.create');
+        Route::post('booking', [BookingController::class, 'store'])->name('booking.store');
+        Route::get('/drivers', [DriverController::class, 'index'])->name('drivers.index');
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::prefix('autocomplete')->group(function () {
+            Route::get('vehicles', [VehicleController::class, 'autocomplete'])->name('autocomplete.vehicles');
+            Route::get('drivers', [DriverController::class, 'autocomplete'])->name('autocomplete.drivers');
+            Route::get('users', [UserController::class, 'autocomplete'])->name('autocomplete.users');
+        });
     });
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
-    Route::get('/booking/{booking}/approve', [BookingController::class, 'approve'])->name('booking.approve');
-    Route::get('/booking/{booking}/reject', [BookingController::class, 'reject'])->name('booking.reject');
-    Route::resource('drivers', DriverController::class);
+    Route::middleware(['role:employee,supervisor'])->group(function () {
+        Route::get('/booking/{booking}/approve', [BookingController::class, 'approve'])->name('booking.approve');
+        Route::get('/booking/{booking}/reject', [BookingController::class, 'reject'])->name('booking.reject');
+    });
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    //autocomplete
-    Route::prefix('autocomplete')->group(function () {
-        Route::get('vehicles', [VehicleController::class, 'autocomplete'])->name('autocomplete.vehicles');
-        Route::get('drivers', [DriverController::class, 'autocomplete'])->name('autocomplete.drivers');
-        Route::get('users', [UserController::class, 'autocomplete'])->name('autocomplete.users');
-    });
 });
 
 require __DIR__ . '/auth.php';
