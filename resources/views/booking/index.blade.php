@@ -61,13 +61,14 @@
                                     {{ __('Booking') }}
                                 </h2>
                             </div>
-                            <div class="w-full px-4 lg:w-1/2 text-right">
-                                <x-link-button-primary href="{{ route('booking.create') }}">
-                                    {{ __('Create') }}
-                                </x-link-button-primary>
-                            </div>
+                            @if (Auth::user()->role == 'admin')
+                                <div class="w-full px-4 lg:w-1/2 text-right">
+                                    <x-link-button-primary href="{{ route('booking.create') }}">
+                                        {{ __('Create') }}
+                                    </x-link-button-primary>
+                                </div>
+                            @endif
                         </div>
-
                     </header>
                     <div class="mt-4 w-full">
                         <x-table :head="$head" id="bookingTable" />
