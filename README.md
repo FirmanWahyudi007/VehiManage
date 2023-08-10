@@ -35,7 +35,7 @@ Aplikasi ini adalah sebuah platform pemesanan kendaraan yang dirancang untuk mem
 -   Username:ihasanah
 -   Password:password
 
-#### Supervisor
+#### Employee
 
 -   Email:handayani.cecep@example.com
 -   Username:parman76
