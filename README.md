@@ -14,16 +14,16 @@
 3. Employee
 
 #### Admin
-- email:intan.wibowo@example.com
-- username:vkuswandari
-- password:password
+- Email:intan.wibowo@example.com
+- Username:vkuswandari
+- Password:password
 
 #### Supervisor
-- email:hkusumo@example.com
-- username:ihasanah
-- password:password
+- Email:hkusumo@example.com
+- Username:ihasanah
+- Password:password
 
 #### Supervisor
-- email:handayani.cecep@example.com
-- username:parman76
-- password:password
+- Email:handayani.cecep@example.com
+- Username:parman76
+- Password:password
